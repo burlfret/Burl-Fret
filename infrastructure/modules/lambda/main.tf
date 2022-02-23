@@ -36,6 +36,8 @@ resource "aws_lambda_function" "burlfret" {
 
   runtime = "python3.8"
 
+  timeout = 60
+
   layers = [aws_lambda_layer_version.pynacl_layer.arn]
 
 }

@@ -28,6 +28,7 @@ data "archive_file" "lambda" {
 module "api_gateway" {
   source = "./modules/api-gateway"
 
+  burlfret_invoke_arn = module.lambda.burlfret_invoke_arn
 }
 
 
