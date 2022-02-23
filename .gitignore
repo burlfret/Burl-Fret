@@ -154,3 +154,5 @@ cython_debug/
 # Terraform
 .terraform*
 *.tfstate*
+
+*.zip

@@ -1,7 +1,7 @@
 variable "tags" {
-    type = map
-    default = {
-        "project":"burlfret"
-    }
-  
+  type = map(any)
+  default = {
+    "project" : "burlfret"
+  }
+
 }
