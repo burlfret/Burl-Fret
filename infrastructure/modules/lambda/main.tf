@@ -18,6 +18,13 @@ resource "aws_iam_role" "burlfret_role" {
 EOF
 }
 
+resource "aws_lambda_layer_version" "pynacl_layer" {
+  filename   = "${path.module}/pynacl_layer.zip"
+  layer_name = "pynacl"
+
+  compatible_runtimes = ["python3.8"]
+}
+
 
 resource "aws_lambda_function" "burlfret" {
   filename      = "${path.module}/burlfret.py.zip"
@@ -28,6 +35,8 @@ resource "aws_lambda_function" "burlfret" {
   source_code_hash = filebase64sha256("${path.module}/burlfret.py.zip")
 
   runtime = "python3.8"
+
+  layers = [aws_lambda_layer_version.pynacl_layer.arn]
 
 }
 

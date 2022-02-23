@@ -11,7 +11,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
-data "archive_file" "init" {
+data "archive_file" "lambda_layer" {
+  type             = "zip"
+  source_dir       = "${path.module}/../temp"
+  output_file_mode = "0666"
+  output_path      = "${path.module}/modules/lambda/pynacl_layer.zip"
+}
+
+data "archive_file" "lambda" {
   type             = "zip"
   source_dir       = "${path.module}/../burlfret"
   output_file_mode = "0666"
@@ -28,6 +35,7 @@ module "lambda" {
   source = "./modules/lambda"
 
   depends_on = [
-    data.archive_file.init
+    data.archive_file.lambda, 
+    data.archive_file.lambda_layer
   ]
 }
