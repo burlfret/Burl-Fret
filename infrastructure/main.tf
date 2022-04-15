@@ -1,16 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.2.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "us-east-1"
-}
-
 data "archive_file" "lambda_layer" {
   type             = "zip"
   source_dir       = "${path.module}/../temp"
@@ -36,7 +23,7 @@ module "lambda" {
   source = "./modules/lambda"
 
   depends_on = [
-    data.archive_file.lambda, 
+    data.archive_file.lambda,
     data.archive_file.lambda_layer
   ]
 }
